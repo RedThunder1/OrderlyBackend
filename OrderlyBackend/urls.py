@@ -18,13 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from ManageData.views import StoreViewSet
+from ManageData.views import CartViewSet, OrderViewSet, StoreViewSet, ProductViewSet
+
 
 router = routers.DefaultRouter()
-
 router.register(r'stores', StoreViewSet, 'stores')
+router.register(r"products", ProductViewSet, basename="products")
+router.register(r'cart', CartViewSet, basename='cart')
+router.register(r'orders', OrderViewSet, basename='orders')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path("api/auth/", include("UserAuth.urls")),
 ]
